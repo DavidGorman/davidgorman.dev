@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EDR | David Gorman</title>
+  <meta name="description" content="Endpoint Detection and Response (EDR): a security project by David Gorman.">
+  <meta name="author" content="David Gorman">
+  <meta property="og:title" content="Endpoint Detection and Response (EDR) | David Gorman">
+  <meta property="og:description" content="Endpoint Detection and Response (EDR): a security project by David Gorman.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)">
+  <script src="/assets/js/theme.js"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">David Gorman</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="/projects/" aria-current="page">Projects</a>
+        <a href="/writeups/">Write-ups</a>
+        <a href="/now/">Now</a>
+        <a href="/about/">About</a>
+        <a href="#contact">Contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false" hidden>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <article>
+      <section class="page-intro page-intro--flush container">
+        <a class="back" href="/projects/">← All projects</a>
+        <p class="eyebrow">Project</p>
+        <h1>Endpoint Detection and Response</h1>
+        <p class="lede">A lightweight, customisable endpoint detection and response tool written in Python, built by a five-person team for an industry client.</p>
+        <dl class="meta">
+          <div><dt>Status</dt><dd>Complete</dd></div>
+          <div><dt>Role</dt><dd>Technical lead</dd></div>
+          <div><dt>Timeframe</dt><dd>2026</dd></div>
+          <div><dt>Links</dt><dd>Repository coming soon</dd></div>
+        </dl>
+      </section>
+
+      <div class="prose container">
+        <h2>Overview</h2>
+        <p>A rule-based EDR for Linux, with modules for file monitoring, process inspection, network monitoring and log analysis, plus automated responses: process kill, file quarantine and IP block. Every detection is mapped to MITRE ATT&amp;CK.</p>
+
+        <h2>Problem</h2>
+        <p>The client needed a customisable, scalable EDR they could deploy on Linux virtual machines to measure how effective their attack simulations were.</p>
+
+        <h2>Approach</h2>
+        <p>We took an attack-first approach. Brute-force, SQL injection, file upload and remote code execution (RCE) attacks were run from Kali Linux against OWASP Juice Shop on an Ubuntu server, telemetry was collected, and detections were built from that data. Each team member owned one attack, its telemetry and its detection module.</p>
+        <p>As technical lead I designed how telemetry was collected from everyone's attacks, built the core detection engine, and wrote the RCE detection module, which detects remote code execution achieved through server-side template injection. Performance was measured as Mean Time to Detect (MTTD) against a Wazuh baseline.</p>
+
+        <h2>Tools</h2>
+        <ul class="tags">
+          <li>Python</li>
+          <li>Kali Linux</li>
+          <li>Ubuntu</li>
+          <li>OWASP Juice Shop</li>
+          <li>Wazuh</li>
+          <li>MITRE ATT&amp;CK</li>
+          <li>VMware Workstation</li>
+          <li>Git</li>
+        </ul>
+
+        <h2>Outcome</h2>
+        <p>Across two evaluation runs on separate lab setups, the RCE module detected every RCE attack (3 of 3) with no false positives on benign traffic (0 of 3). In the final run it matched Wazuh on detection and was slightly faster to alert.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="mono">RCE detection, final evaluation run</caption>
+            <thead><tr><th scope="col">Metric</th><th scope="col">EDR (RCE module)</th><th scope="col">Wazuh</th></tr></thead>
+            <tbody>
+              <tr><td>Detection rate</td><td>100%</td><td>100%</td></tr>
+              <tr><td>Precision</td><td>100%</td><td>100%</td></tr>
+              <tr><td>False positive rate</td><td>0%</td><td>0%</td></tr>
+              <tr><td>Mean time to detect</td><td>1.14s</td><td>1.25s</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The EDR was also built to stay light on the endpoint. Running side by side with the Wazuh agent, it used about a fifth of the CPU and a third of the memory.</p>
+        <div class="table-wrap">
+          <table>
+            <caption class="mono">Resource footprint on the endpoint, full EDR vs Wazuh agent</caption>
+            <thead><tr><th scope="col">Metric</th><th scope="col">EDR</th><th scope="col">Wazuh agent</th></tr></thead>
+            <tbody>
+              <tr><td>CPU (mean)</td><td>0.02%</td><td>0.11%</td></tr>
+              <tr><td>Memory</td><td>27 MB</td><td>75 MB</td></tr>
+              <tr><td>Processes</td><td>1</td><td>5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h2>Get in touch.</h2>
+      <div class="email-slot">
+        <button class="email-btn" type="button" data-reveal-email hidden>Show email address</button>
+        <noscript><p class="footnote footnote--flush">Turn on JavaScript to see my email, or reach me on <a href="https://www.linkedin.com/in/YOUR-HANDLE">LinkedIn</a>.</p></noscript>
+      </div>
+      <p class="footnote">Résumé available on request.</p>
+      <div class="footer-bar">
+        <span>© <span data-year>2026</span> David Gorman</span>
+        <nav aria-label="Elsewhere">
+          <a href="https://www.linkedin.com/in/YOUR-HANDLE" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/DavidGorman" rel="noopener">GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

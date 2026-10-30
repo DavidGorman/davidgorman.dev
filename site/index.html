@@ -1,12 +1,157 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>David Gorman</title>
+  <meta name="description" content="David Gorman, cyber security graduate in Melbourne. Projects, write-ups and lab notes across offensive and defensive security.">
+  <meta name="author" content="David Gorman">
+  <meta property="og:title" content="David Gorman">
+  <meta property="og:description" content="David Gorman, cyber security graduate in Melbourne. Projects, write-ups and lab notes across offensive and defensive security.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)">
+  <script src="/assets/js/theme.js"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/main.js" defer></script>
 </head>
 <body>
-  <h1>Coming soon</h1>
-  <p>Deployed automatically from GitHub.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">David Gorman</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="/projects/">Projects</a>
+        <a href="/writeups/">Write-ups</a>
+        <a href="/now/">Now</a>
+        <a href="/about/">About</a>
+        <a href="#contact">Contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false" hidden>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container">
+      <p class="eyebrow">Cyber Security · Melbourne, Australia</p>
+      <h1>Security graduate who builds systems, attacks them, and writes the detections.</h1>
+      <p class="lede">Final-year Cyber Security student at Swinburne University. I work across offence and defence: attack scripting, detection engineering, and the infrastructure underneath. Open to graduate roles in security operations, detection and offensive security.</p>
+      <div class="links">
+        <a class="link-accent" href="/projects/">View projects →</a>
+        <a href="https://www.linkedin.com/in/YOUR-HANDLE" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/DavidGorman" rel="noopener">GitHub ↗</a>
+        <a href="#contact">Contact ↓</a>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="projects-h">
+        <div class="section-head">
+          <h2 id="projects-h"><span class="num">01</span>Selected projects</h2>
+          <a href="/projects/">All projects →</a>
+        </div>
+        <ul class="list">
+          <li>
+            <a class="row" href="/projects/EDR/">
+              <span class="idx">01</span>
+              <span class="body">
+                <span class="title">Endpoint Detection and Response (EDR)</span>
+                <span class="summary">A lightweight, customisable EDR written in Python that detects attacks mapped to MITRE ATT&amp;CK.</span>
+              </span>
+              <span class="mono">Complete</span>
+            </a>
+          </li>
+          <li>
+            <a class="row" href="/projects/davidgorman-dev/">
+              <span class="idx">02</span>
+              <span class="body">
+                <span class="title">davidgorman.dev</span>
+                <span class="summary">This site, self-hosted on Oracle Cloud with SSH reachable only over VPN and push-to-deploy through GitHub Actions.</span>
+              </span>
+              <span class="mono">Live</span>
+            </a>
+          </li>
+          <li>
+            <a class="row" href="/projects/purple-team-lab/">
+              <span class="idx">03</span>
+              <span class="body">
+                <span class="title">Purple team home lab</span>
+                <span class="summary">A segmented lab with a DMZ web server, Windows AD and a SIEM, for running attacks and building detections.</span>
+              </span>
+              <span class="mono">In progress</span>
+            </a>
+          </li>
+          <li>
+            <a class="row" href="/projects/hack-the-box/">
+              <span class="idx">04</span>
+              <span class="body">
+                <span class="title">Hack The Box</span>
+                <span class="summary">Machines I've worked through, with write-ups on the techniques and how to detect them.</span>
+              </span>
+              <span class="mono">In progress</span>
+            </a>
+          </li>
+        </ul>
+    </section>
+
+    <section class="section container" aria-labelledby="writeups-h">
+        <div class="section-head">
+          <h2 id="writeups-h"><span class="num">02</span>Latest write-ups</h2>
+          <a href="/writeups/">All write-ups →</a>
+        </div>
+        <!-- Add write-ups here. Copy this row for each one:
+        <ul class="list">
+          <li>
+            <a class="row compact" href="/writeups/your-slug/">
+              <span class="date">YYYY-MM-DD</span>
+              <span class="title">Write-up title</span>
+              <span class="mono">tag · tag</span>
+            </a>
+          </li>
+        </ul>
+        -->
+        <p class="empty">First write-ups coming soon.</p>
+    </section>
+
+    <section class="section container" aria-labelledby="now-h">
+        <div class="section-head">
+          <h2 id="now-h"><span class="num">03</span>Now</h2>
+          <span class="mono">Updated October 2026</span>
+        </div>
+        <div class="cols">
+          <div><p class="eyebrow">Building</p><p>This site, and my purple team home lab</p></div>
+          <div><p class="eyebrow">Learning</p><p>Hack The Box machines and OSINT techniques</p></div>
+          <div><p class="eyebrow">Reading</p><p><a href="https://arxiv.org/abs/1706.03762" rel="noopener"><cite>Attention Is All You Need</cite></a> (Vaswani et al., 2017), to understand how LLMs work</p></div>
+        </div>
+        <p><a class="link-accent more-link" href="/now/">Full Now page →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h2>Get in touch.</h2>
+      <div class="email-slot">
+        <button class="email-btn" type="button" data-reveal-email hidden>Show email address</button>
+        <noscript><p class="footnote footnote--flush">Turn on JavaScript to see my email, or reach me on <a href="https://www.linkedin.com/in/YOUR-HANDLE">LinkedIn</a>.</p></noscript>
+      </div>
+      <p class="footnote">Résumé available on request.</p>
+      <div class="footer-bar">
+        <span>© <span data-year>2026</span> David Gorman</span>
+        <nav aria-label="Elsewhere">
+          <a href="https://www.linkedin.com/in/YOUR-HANDLE" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/DavidGorman" rel="noopener">GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
