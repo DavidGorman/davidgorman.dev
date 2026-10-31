@@ -51,7 +51,7 @@
           <div><dt>Status</dt><dd>In progress</dd></div>
           <div><dt>Role</dt><dd>Sole builder</dd></div>
           <div><dt>Timeframe</dt><dd>October 2026 to present</dd></div>
-          <div><dt>Links</dt><dd>Repository coming soon</dd></div>
+          <div><dt>Links</dt><dd><a href="https://github.com/DavidGorman/purple-team-lab" rel="noopener">GitHub repository ↗</a></dd><dd><a href="https://github.com/users/DavidGorman/projects/2" rel="noopener">Sprint board ↗</a></dd><dd><a href="https://github.com/DavidGorman/purple-team-lab/tree/main/journal" rel="noopener">Build journal ↗</a></dd></div>
         </dl>
       </section>
 
@@ -99,14 +99,22 @@
           <li>MITRE ATT&amp;CK</li>
         </ul>
 
-        <h2>Progress so far</h2>
-        <ul>
-          <li>Isolated network segments created, with the firewall as the only route between them</li>
-          <li>pfSense installed and configured with WAN, LAN, DMZ and MGMT interfaces</li>
-          <li>All lab machines built: firewall, domain controller, workstation, web server, SIEM and attacker</li>
-          <li>Network register, change log and build journal set up to document every step</li>
-        </ul>
-        <p>Next: promote the domain controller, install and configure Wazuh, and tighten the firewall policy before the first round of attacks.</p>
+        <h2>Roadmap</h2>
+        <p>The project runs in six phases. Live progress is tracked on the <a href="https://github.com/users/DavidGorman/projects/2" rel="noopener">sprint board</a>.</p>
+        <ol>
+          <li><strong>Build</strong> (current): all machines are installed; next is configuring the network, firewall rules, the domain and each server</li>
+          <li><strong>Monitor:</strong> install Wazuh by hand and bring logs in from every host</li>
+          <li><strong>Attack:</strong> run each scenario from Kali and record what succeeds</li>
+          <li><strong>Harden:</strong> fix the weaknesses the attacks exposed, working towards Essential Eight Maturity Level One</li>
+          <li><strong>Re-test:</strong> repeat every attack to prove each fix works</li>
+          <li><strong>Report:</strong> write up the findings, evidence and before and after results</li>
+        </ol>
+
+        <h2>Planned scenarios</h2>
+        <h3>Web server breach and pivot</h3>
+        <p>The core scenario described above: compromise the vulnerable web app in the DMZ, then try to move into the internal Active Directory network, with the firewall rules deciding whether the pivot succeeds.</p>
+        <h3>Assume breach: data exfiltration</h3>
+        <p>An attacker already has a foothold inside the network, as if a phishing email had worked, and tries to get data out. The goal is to harden egress so it fails: filtering outbound traffic, forcing DNS through an internal resolver, and closing common exfiltration channels such as DNS tunnelling, HTTPS uploads and cloud storage. The phishing lure is built for the report only and never sent. The response is run as a live incident, from triage to a written situation report.</p>
       </div>
     </article>
   </main>
