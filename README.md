@@ -30,7 +30,6 @@ templates/                page templates, NOT deployed
   `site/projects/index.html` (and the Home page if it's a featured one).
 - **Placeholders** are in `[square brackets]`. Find any left before pushing:
   `grep -rn '\[' site --include=*.html`
-- **LinkedIn:** replace `YOUR-HANDLE` in every page: `grep -rl YOUR-HANDLE site`
 
 The header and footer are repeated on every page. If you change one, change them all.
 
