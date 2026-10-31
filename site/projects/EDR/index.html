@@ -51,16 +51,8 @@
           <div><dt>Status</dt><dd>Complete</dd></div>
           <div><dt>Role</dt><dd>Technical lead</dd></div>
           <div><dt>Timeframe</dt><dd>2026</dd></div>
-          <div>
-            <dt>Links</dt>
-            <dd>
-            <a href="https://github.com/DavidGorman/EDR_Innovation_Project"
-               target="_blank" rel="noopener noreferrer">
-              GitHub repository <span aria-hidden="true">↗</span>
-            </a>
-          </dd>
-          </div>
-          </dl>
+          <div><dt>Links</dt><dd><a href="https://github.com/DavidGorman/EDR_Innovation_Project" target="_blank" rel="noopener noreferrer">GitHub repository <span aria-hidden="true">↗</span></a></dd></div>
+        </dl>
       </section>
 
       <div class="prose container">
@@ -73,6 +65,16 @@
         <h2>Approach</h2>
         <p>We took an attack-first approach. Brute-force, SQL injection, file upload and remote code execution (RCE) attacks were run from Kali Linux against OWASP Juice Shop on an Ubuntu server, telemetry was collected, and detections were built from that data. Each team member owned one attack, its telemetry and its detection module.</p>
         <p>As technical lead I designed how telemetry was collected from everyone's attacks, built the core detection engine, and wrote the RCE detection module, which detects remote code execution achieved through server-side template injection. Performance was measured as Mean Time to Detect (MTTD) against a Wazuh baseline.</p>
+
+        <h2>Team</h2>
+        <p>Built by a team of five, with each member owning one attack type: its rules, test cases and attack scripts.</p>
+        <ul>
+          <li><strong>David Gorman</strong> (technical lead): architecture and integration spec, detection engine, responder, shared core, web and process agents, RCE detection, evaluation harness and the Wazuh comparison</li>
+          <li><strong>Thapanawat</strong>: SQL injection</li>
+          <li><strong>Oliver</strong>: brute force</li>
+          <li><strong>Kikiola</strong>: broken authentication</li>
+          <li><strong>Louis</strong>: file upload and the file integrity agent</li>
+        </ul>
 
         <h2>Tools</h2>
         <ul class="tags">
@@ -87,31 +89,40 @@
         </ul>
 
         <h2>Outcome</h2>
-        <p>Across two evaluation runs on separate lab setups, the RCE module detected every RCE attack (3 of 3) with no false positives on benign traffic (0 of 3). In the final run it matched Wazuh on detection and was slightly faster to alert.</p>
+        <p>Across two evaluation runs on separate lab setups, the RCE module detected every RCE attack with no false positives. In the final run it matched Wazuh on detection and was slightly faster to alert.</p>
         <div class="table-wrap">
           <table>
-            <caption class="mono">RCE detection, final evaluation run</caption>
+            <caption class="mono">RCE detection, final run: 3 malicious and 3 benign test cases</caption>
             <thead><tr><th scope="col">Metric</th><th scope="col">EDR (RCE module)</th><th scope="col">Wazuh</th></tr></thead>
             <tbody>
-              <tr><td>Detection rate</td><td>100%</td><td>100%</td></tr>
-              <tr><td>Precision</td><td>100%</td><td>100%</td></tr>
-              <tr><td>False positive rate</td><td>0%</td><td>0%</td></tr>
+              <tr><td>Attacks detected</td><td>3 of 3</td><td>3 of 3</td></tr>
+              <tr><td>False positives</td><td>0 of 3</td><td>0 of 3</td></tr>
               <tr><td>Mean time to detect</td><td>1.14s</td><td>1.25s</td></tr>
             </tbody>
           </table>
         </div>
-        <p>The EDR was also built to stay light on the endpoint. Running side by side with the Wazuh agent, it used about a fifth of the CPU and a third of the memory.</p>
+        <p>Across all five attack types in the final run (12 malicious and 20 benign cases), both tools caught the same 6 of 12 attacks. The EDR raised 2 false positives against Wazuh's 7, mostly because its rules were written for this specific application. The full per-attack results are in the <a href="https://github.com/DavidGorman/EDR_Innovation_Project#evaluation" target="_blank" rel="noopener noreferrer">repository README</a>.</p>
+        <p>The EDR was also built to stay light on the endpoint. Running side by side with the Wazuh agent, it used about a third of the memory.</p>
         <div class="table-wrap">
           <table>
-            <caption class="mono">Resource footprint on the endpoint, full EDR vs Wazuh agent</caption>
+            <caption class="mono">Resource footprint: EDR process vs Wazuh agent only (Test 7, about 17 minutes sampled every second)</caption>
             <thead><tr><th scope="col">Metric</th><th scope="col">EDR</th><th scope="col">Wazuh agent</th></tr></thead>
             <tbody>
-              <tr><td>CPU (mean)</td><td>0.02%</td><td>0.11%</td></tr>
-              <tr><td>Memory</td><td>27 MB</td><td>75 MB</td></tr>
+              <tr><td>Memory (mean)</td><td>26.9 MB</td><td>74.4 MB</td></tr>
+              <tr><td>CPU (mean)</td><td>Under 0.1%</td><td>Under 0.1%</td></tr>
               <tr><td>Processes</td><td>1</td><td>5</td></tr>
             </tbody>
           </table>
         </div>
+        <p>In the other test setup, the Wazuh manager ran on the same VM, so its figure (about 534 MB) isn't a like-for-like comparison and isn't used here.</p>
+
+        <h2>Limitations</h2>
+        <ul>
+          <li>The sample is small. For RCE, 100% detection means 3 of 3 attacks in one lab run, not evidence of production-grade accuracy.</li>
+          <li>File upload detection didn't fire in the final run (0 of 4), and the forged-token rule missed 2 of 3 cases. Both are open issues.</li>
+          <li>The rules are tuned to OWASP Juice Shop and would need rewriting for a different application.</li>
+          <li>Only one host was monitored, with no central management, and detection speed depends on a 2-second poll interval.</li>
+        </ul>
       </div>
     </article>
   </main>
