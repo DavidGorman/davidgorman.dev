@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Now | David Gorman</title>
-  <meta name="description" content="What David Gorman is building, learning and reading right now.">
+  <meta name="description" content="The current sprint for each of David Gorman's projects.">
   <meta name="author" content="David Gorman">
   <meta property="og:title" content="Now | David Gorman">
-  <meta property="og:description" content="What David Gorman is building, learning and reading right now.">
+  <meta property="og:description" content="The current sprint for each of David Gorman's projects.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)">
@@ -43,23 +43,31 @@
   <main id="main">
     <section class="page-intro container">
       <p class="eyebrow">Now</p>
-      <h1>What I'm focused on at the moment.</h1>
-      <p class="lede">A snapshot of what I'm building, learning and reading. Updated October 2026.</p>
+      <h1>What I'm working on.</h1>
+      <p class="lede">The current sprint for each project. Updated November 2026.</p>
     </section>
 
-    <section class="section container" aria-labelledby="now-b">
-        <div class="section-head"><h2 id="now-b">Building</h2></div>
-        <div class="cols"><div><ul><li><a href="/projects/davidgorman-dev/">davidgorman.dev</a>: this site, self-hosted on Oracle Cloud</li><li><a href="/projects/purple-team-lab/">Purple team home lab</a>: a segmented lab for running attacks and building detections</li></ul></div></div>
+    <section class="section container" aria-labelledby="now-lab">
+        <div class="section-head">
+          <h2 id="now-lab">Purple Team Lab</h2>
+          <a href="https://github.com/users/DavidGorman/projects/2" rel="noopener">Sprint board ↗</a>
+        </div>
+        <div class="prose prose--section">
+          <h3>Sprint 1: Build the lab infrastructure</h3>
+          <p>Stand up the lab end to end: isolated network segments behind pfSense, a DMZ web server with a deliberately vulnerable app, an Active Directory domain, and a SIEM collecting logs from all of it. This is the foundation every attack and detection scenario will run on.</p>
+          <p><a href="/projects/purple-team-lab/">About the project</a></p>
+        </div>
     </section>
 
-    <section class="section container" aria-labelledby="now-l">
-        <div class="section-head"><h2 id="now-l">Learning</h2></div>
-        <div class="cols"><div><ul><li>Hack The Box machines</li><li>OSINT techniques</li></ul></div></div>
-    </section>
-
-    <section class="section container" aria-labelledby="now-r">
-        <div class="section-head"><h2 id="now-r">Reading</h2></div>
-        <div class="cols"><div><ul><li><a href="https://arxiv.org/abs/1706.03762" rel="noopener"><cite>Attention Is All You Need</cite></a> (Vaswani et al., 2017), the paper behind the Transformer architecture, to get a better understanding of Artificial Intelligence.</li></ul></div></div>
+    <section class="section container" aria-labelledby="now-site">
+        <div class="section-head">
+          <h2 id="now-site">davidgorman.dev</h2>
+        </div>
+        <div class="prose prose--section">
+          <h3>Sprint 2: Content and layout</h3>
+          <p>With the hosting and security in place, this sprint is about what the site says. That means refining the layout, writing up each project with real evidence, publishing the first write-up, and documenting the security decisions behind the site.</p>
+          <p><a href="/projects/davidgorman-dev/">About the project</a></p>
+        </div>
     </section>
   </main>
 
