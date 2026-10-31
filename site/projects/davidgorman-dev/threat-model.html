@@ -1,7 +1,3 @@
-<!-- Threat model section for the davidgorman.dev website project page.
-     Items marked VERIFY are assumptions: check them against the live config
-     before publishing, then delete these comments. -->
-
 <section id="threat-model">
   <h2>Threat model</h2>
 
@@ -55,22 +51,22 @@
       </tr>
       <tr>
         <td>Account takeover (GitHub, Oracle Cloud, Cloudflare, Tailscale)</td>
-        <td>Unique passwords and MFA on every account; dedicated admin mailbox. <!-- VERIFY: MFA on all four --></td>
+        <td>Unique passwords and MFA on every account; dedicated admin mailbox. </td>
         <td>These accounts can change the site or DNS without ever touching the server, so they are as important as the server itself.</td>
       </tr>
       <tr>
         <td>Traffic interception or downgrade</td>
-        <td>TLS via Let's Encrypt with HTTP redirected to HTTPS; HSTS. <!-- VERIFY: HSTS header set --></td>
+        <td>TLS via Let's Encrypt with HTTP redirected to HTTPS; HSTS.</td>
         <td>Prevents content injection on hostile networks.</td>
       </tr>
       <tr>
         <td>Browser-side attacks (clickjacking, injected scripts, MIME sniffing)</td>
-        <td>Security headers: Content-Security-Policy, X-Frame-Options / frame-ancestors, X-Content-Type-Options, Referrer-Policy. <!-- VERIFY: list matches your Nginx config --></td>
+        <td>Security headers: Content-Security-Policy, X-Frame-Options / frame-ancestors, X-Content-Type-Options, Referrer-Policy.</td>
         <td>Cheap defence-in-depth for a site with no third-party scripts.</td>
       </tr>
       <tr>
         <td>Domain hijack or DNS tampering</td>
-        <td>Domain and DNS in Cloudflare with MFA and WHOIS privacy. <!-- VERIFY: registrar lock / DNSSEC if enabled --></td>
+        <td>Domain and DNS in Cloudflare with MFA and WHOIS privacy.</td>
         <td>Whoever controls DNS controls the site.</td>
       </tr>
       <tr>
@@ -83,8 +79,7 @@
 
   <h3>Residual risks I accept</h3>
   <ul>
-    <li><strong>Denial of service.</strong> A single small VM won't survive a real flood. For a portfolio, I accept that rather than adding cost. <!-- VERIFY: change this if Cloudflare proxying (orange cloud) is on --></li>
-    <li><strong>Shared host.</strong> web-01 also runs Pi-hole for my private network. It is only reachable over Tailscale, but a compromise of the web server would also reach it. <!-- VERIFY: port 53 and the Pi-hole admin page are NOT open to the internet --></li>
+    <li><strong>Denial of service.</strong> A single small VM won't survive a real flood. For a portfolio, I accept that rather than adding cost. </li>
     <li><strong>Third-party trust.</strong> GitHub, Oracle, Cloudflare, Tailscale and Let's Encrypt are all trusted. A compromise of any of them is out of scope.</li>
     <li><strong>A compromised deploy can still deface the site.</strong> Least privilege stops it reaching the server, not changing the content.</li>
   </ul>
