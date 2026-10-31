@@ -58,6 +58,7 @@
       <div class="prose container">
         <h2>Overview</h2>
         <p>A portfolio written in plain HTML, CSS and JavaScript, with no frameworks, no build step and no third-party requests. It runs on Nginx on Ubuntu Server in Oracle Cloud, on infrastructure I built, secured and maintain myself.</p>
+        <p><a href="#threat-model">Jump to the threat model</a></p>
 
         <h2>Problem</h2>
         <p>I wanted a portfolio I fully control, and a real public-facing server to practise securing and operating, rather than handing both off to a hosting platform.</p>
@@ -81,7 +82,6 @@
           <li>Automatic security updates</li>
           <li>fail2ban banning repeated SSH failures and bots scanning for common web vulnerabilities</li>
           <li>Web server version hidden from responses</li>
-          <li><a href="/projects/website.html#threat-model">Read the threat model</a></li>
         </ul>
         <h3>TLS and security headers</h3>
         <ul>
@@ -101,6 +101,74 @@
           <li>Domain registration details redacted, and DNS managed through Cloudflare</li>
           <li>Email routing aliases, so no personal address is published</li>
           <li>The contact address only appears on the page when a visitor clicks to reveal it, keeping it away from scrapers</li>
+        </ul>
+
+        <h2 id="threat-model">Threat model</h2>
+        <p>This is a static site, so the threat model is deliberately small. The goal is to keep the site and the server in my hands, and to make sure a compromise of any one account or service can't quietly change what visitors see.</p>
+
+        <h3>What I'm protecting</h3>
+        <ul>
+          <li><strong>Site integrity:</strong> visitors should only ever see content I published</li>
+          <li><strong>The server:</strong> a public VM that could be abused for other attacks if taken over</li>
+          <li><strong>The control plane:</strong> the GitHub, Oracle Cloud, Cloudflare and Tailscale accounts, each of which can change the site without touching the server</li>
+          <li><strong>Availability:</strong> nice to have, but a portfolio being down for a few hours is low impact</li>
+        </ul>
+        <p>There are no user accounts, no database and no forms, so there is no visitor data to steal.</p>
+
+        <h3>Who I'm defending against</h3>
+        <p>Automated internet-wide scanning, opportunistic exploitation of unpatched software, credential stuffing against my accounts, and supply-chain risk in the deployment pipeline. I'm not designing for a targeted, well-resourced attacker.</p>
+
+        <h3>Threats and controls</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Threat</th><th scope="col">Control</th><th scope="col">Why this control</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SSH brute force or exploit</td>
+                <td>SSH is never exposed to the internet; access only over Tailscale, with key-only login</td>
+                <td>Removes the most-scanned attack surface instead of hardening it</td>
+              </tr>
+              <tr>
+                <td>Unpatched OS or web server</td>
+                <td>Automatic security updates; only HTTP and HTTPS open</td>
+                <td>With no application runtime, patching the OS and Nginx covers most of the exposed code</td>
+              </tr>
+              <tr>
+                <td>Malicious change through the deploy pipeline</td>
+                <td>Unprivileged deploy user that can only write the web root; read-only workflow permissions; pinned host key</td>
+                <td>Limits the blast radius: a bad deploy can change the site but can't take over the server</td>
+              </tr>
+              <tr>
+                <td>Account takeover</td>
+                <td>MFA and unique passwords on the accounts that control the site</td>
+                <td>These accounts can change the site or DNS without ever touching the server</td>
+              </tr>
+              <tr>
+                <td>Interception or downgrade</td>
+                <td>TLS 1.3, HTTP redirected to HTTPS, long-duration HSTS</td>
+                <td>Prevents content injection on hostile networks</td>
+              </tr>
+              <tr>
+                <td>Injected scripts or clickjacking</td>
+                <td>Strict Content Security Policy with no inline code, plus framing and MIME-sniffing protections</td>
+                <td>Cheap defence in depth for a site with no third-party scripts</td>
+              </tr>
+              <tr>
+                <td>Server loss or corruption</td>
+                <td>Source in GitHub redeploys in minutes; boot volume backups</td>
+                <td>Recovery is a rebuild, not a restore of unique data</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Risks I accept</h3>
+        <ul>
+          <li><strong>Denial of service.</strong> A single small server won't survive a real flood. Putting the site behind Cloudflare's proxy is the planned fix</li>
+          <li><strong>A compromised deploy can still deface the site.</strong> Least privilege stops it reaching the server, not changing the content</li>
+          <li><strong>Third-party trust.</strong> GitHub, Oracle, Cloudflare, Tailscale and Let's Encrypt are all trusted, and a compromise of any of them is out of scope</li>
         </ul>
 
         <h2>Tools</h2>
